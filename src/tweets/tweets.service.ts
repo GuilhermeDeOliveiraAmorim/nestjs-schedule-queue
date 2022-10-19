@@ -1,4 +1,4 @@
-import { Get, Injectable, Post } from '@nestjs/common';
+import { Get, Post, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
@@ -21,8 +21,9 @@ export class TweetsService {
     return this.tweetModel.findAll();
   }
 
+  @Get()
   findOne(id: number) {
-    return `This action returns a #${id} tweet`;
+    return this.tweetModel.findOne({ having: { id: id } });
   }
 
   update(id: number, updateTweetDto: UpdateTweetDto) {
